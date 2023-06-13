@@ -26,31 +26,28 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Column(
-              children: [
-                //search box containter added by the widget functioon call
-                searchBox(),
-                //Title Container For All ToDos
-                toDoTitleView(),
-                //List View For the all the ToDos Items.
-                // listViewForToDos(),
-                Expanded(
-                  flex: 1,
-                  child: listViewForToDos(),
-                ),
-              ],
+      body: Container(
+        width: double.infinity,
+        color: tdBGColor,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        child: Column(
+          children: [
+            //search box containter added by the widget functioon call
+            searchBox(),
+            //Title Container For All ToDos
+            toDoTitleView(),
+            //List View For the all the ToDos Items.
+            // listViewForToDos(),
+            Expanded(
+              flex: 1,
+              child: listViewForToDos(),
             ),
-          ),
-          //Bottom new ToDo item add layout
-          newToDoItem(),
-        ],
+            //Bottom new ToDo item add layout
+            //creating the add the new ToDo Item at the bottom screen.
+            newToDoItem(),
+          ],
+        ),
       ),
-      //creating the add the new ToDo Item at the bottom screen.
     );
   }
 
@@ -68,11 +65,13 @@ class _HomeState extends State<Home> {
 
   void _addToDoItem(String toDo) {
     setState(() {
-      todooList.insert(
-          0,
-          ToDo(
-              id: DateTime.now().millisecondsSinceEpoch.toString(),
-              todoText: toDo));
+      if (toDo.isNotEmpty) {
+        todooList.insert(
+            0,
+            ToDo(
+                id: DateTime.now().millisecondsSinceEpoch.toString(),
+                todoText: toDo));
+      }
     });
     _todoController.clear();
   }
@@ -119,11 +118,7 @@ class _HomeState extends State<Home> {
           // TextInput container for the new ToDo Item
           Expanded(
             child: Container(
-              margin: const EdgeInsets.only(
-                bottom: 20,
-                right: 20,
-                left: 20,
-              ),
+              margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 5,
@@ -152,7 +147,6 @@ class _HomeState extends State<Home> {
           //Add ToDo Item Icon Button
           Container(
             margin: const EdgeInsets.only(
-              bottom: 20,
               right: 20,
             ),
             child: ElevatedButton(
@@ -178,7 +172,6 @@ class _HomeState extends State<Home> {
 
   Widget listViewForToDos() {
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 70),
       // shrinkWrap: true,
       physics: const ScrollPhysics(),
       // physics: const ClampingScrollPhysics(),

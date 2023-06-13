@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
 import '../model/todo.dart';
@@ -17,6 +18,17 @@ class ToDoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: Colors.black54,width: 1),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.blueGrey,
+            blurRadius: 2,
+          )
+        ],
+      ),
       child: ListTile(
         onTap: () {
           onToDoChanged(todo);
